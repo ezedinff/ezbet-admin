@@ -2,13 +2,12 @@ import {Layout, Menu} from "antd";
 import React from 'react';
 import {SliderMenu} from "./SliderMenu";
 import './sider.less'
-import Scrollbar from '../Scrollbar';
+import PerfectScrollbar from '../Scrollbar';
 
-export function Sider(props: { menus: any; collapsed: any; onCollapsed: any; }) {
+export function Sider(props: { menus: any; collapsed: any; onCollapsed: any; appName: string, appLogo: string }) {
     const {menus, collapsed, onCollapsed} = props;
     return (
         <Layout.Sider
-            width={256}
             collapsible
             collapsed={collapsed}
             className={"sider"}
@@ -17,18 +16,19 @@ export function Sider(props: { menus: any; collapsed: any; onCollapsed: any; }) 
         >
             <div className={"brand"}>
                 <div className={"logo"}>
-                    <img alt="logo" src={""} />
-                    {!collapsed && <h1>{"EziBet"}</h1>}
+                    <img alt="logo" src={props.appLogo} />
+                   {/* {!collapsed && <h1>{props.appName}</h1>}*/}
                 </div>
             </div>
            <div className={"menuContainer"}>
-               <Scrollbar
+               <PerfectScrollbar
                    options={{
                        // Disabled horizontal scrolling, https://github.com/utatti/perfect-scrollbar#options
                        suppressScrollX: true,
+
                    }}>
                    <SliderMenu menus={menus} collapsed={collapsed}/>
-               </Scrollbar>
+               </PerfectScrollbar>
            </div>
         </Layout.Sider>
     );

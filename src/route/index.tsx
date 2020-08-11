@@ -8,10 +8,11 @@ import {
     Fixture,
     User,
     Bet,
-    Advertisement
+    Advertisement, Transaction, Report, Setting
 } from "../pages";
 import {PrivateLayout} from "../layouts/PrivateLayout";
 import {FullPageLoader} from "../components/Loaders/FullPageLoader";
+import {Shop} from "../pages/Shop";
 
 export const childRoutes = [
     {
@@ -61,6 +62,30 @@ export const childRoutes = [
         icon: "fund",
         path: "/admin/advertisements",
         component: Advertisement
+    },
+    {
+        name: "Shops",
+        icon: "home",
+        path: "/admin/shop",
+        component: Shop
+    },
+    {
+        name: "Transactions",
+        icon: "shrink ",
+        path: "/admin/transactions",
+        component: Transaction
+    },
+    {
+        name: "Reports",
+        icon: "snippets",
+        path: "/admin/reports",
+        component: Report
+    },
+    {
+        name: "Settings",
+        icon: "setting",
+        path: "/admin/settings",
+        component: Setting
     },
 
 ];

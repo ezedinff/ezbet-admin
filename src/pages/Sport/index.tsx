@@ -1,21 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './index.less';
-import {Table} from "antd";
-import {sportColumns, sports} from "./data";
+import {sportColumns} from "./data";
+import {useLazyQuery, useMutation} from "@apollo/react-hooks";
+import {SPORTS, UPDATE_SPORT} from "../../shared/graphql/sport.gql";
+import {FullPageLoader} from "../../components/Loaders/FullPageLoader";
+import {DataTable} from "../../components/DataTable";
 
 export const Sport = () => {
-    const rowSelection = {
-        selectedRowKeys: sports.filter(sport => sport.isAvailable).map(sport => sport.key),
-        onChange: (selectedRowKeys: any, selectedRows: any) => {
-            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-        },
-        getCheckboxProps: (record: { name: string; }) => ({
-            disabled: record.name === 'Disabled User', // Column configuration not to be checked
-            name: record.name,
-        }),
-    };
-
-    return (
-        <Table dataSource={sports} columns={sportColumns} rowSelection={{type: 'checkbox', ...rowSelection,  hideSelectAll: true}}/>
-    );
+    const [getSports, {data, loading, error, refetch}] = useLazyQuery(SPORTS);
+    const [updateSport, {data: sport, loading: isUpdating, error: isFailed}] = useMutation(UPDATE_SPORT);
+    useEffect(() => {getSports()}, []);
+    return loading || !data ? <FullPageLoader/> : (<DataTable columns={sportColumns} data={data.sports} title={"Sports"} updateFn={updateSport}/>);
 };

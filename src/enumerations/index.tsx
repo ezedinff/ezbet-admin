@@ -7,12 +7,12 @@
 
 export enum ROUTES {
   home = '/',
-  dashboard = '/dashboard',
+  dashboard = '/admin',
   page403 = '/403',
   page404 = '/404',
   page500 = '/500',
 }
 
 export enum LOCAL_STORAGE_TEMPLATE {
-  token = 'x-token',
+  token = 'token',
 }

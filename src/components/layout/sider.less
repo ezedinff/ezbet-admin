@@ -21,10 +21,11 @@
   .logo {
     display: flex;
     align-items: center;
+    align-self: center;
     justify-content: center;
 
     img {
-      width: 36px;
+      width: 128px;
       margin-right: 8px;
     }
 
@@ -48,7 +49,6 @@
 }
 
 .menuContainer {
-  height: ~'calc(100vh - 120px)';
   overflow-x: hidden;
   flex: 1;
   padding: 24px 0;
@@ -64,11 +64,11 @@
       background-color: rgba(0, 0, 0, 0.2);
     }
   }
-
-  :global {
-    .ant-menu-inline {
-      border-right: none;
-    }
+  .scrollbar-container{
+    height: ~'calc(100vh - 120px)';
+  }
+  .ant-menu-inline {
+    border-right: none;
   }
 }
 

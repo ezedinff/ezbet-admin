@@ -27,10 +27,6 @@ export const sports = [
 
 export const sportColumns = [
     {
-        title: "ID",
-        dataIndex: "id"
-    },
-    {
         title: "Name",
         dataIndex: "name"
     },

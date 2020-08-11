@@ -1,0 +1,45 @@
+* {box-sizing: border-box}
+/* Container needed to position the overlay. Adjust the width as needed */
+.upload-container {
+  position: relative;
+  width: 128px;
+  max-width: 128px;
+  height: 128px;
+  max-height: 128px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: 24px;
+}
+
+/* Make the image to responsive */
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* The overlay effect - lays on top of the container and over the image */
+.upload-overlay {
+  position: absolute;
+  bottom: 2px;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: #f1f1f1;
+  transition: .5s ease;
+  opacity:0;
+  font-size: 12px;
+  width: 100%;
+}
+
+/* When you mouse over the container, fade in the overlay title */
+.upload-container:hover .upload-overlay {
+  opacity: 1;
+}
+.upload-overlay:hover{
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: #f1f1f1;
+}
