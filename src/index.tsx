@@ -13,6 +13,7 @@ import * as serviceWorker from './serviceWorker';
 import App from "./App";
 
 
+require('dotenv').config()
 ReactDOM.render(
   <ApolloProvider client={client}>
     <BrowserRouter>

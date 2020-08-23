@@ -44,7 +44,7 @@ export default function PrimaryLayout(){
                         }}>
                         <Content className={"content"}>
                             <Redirect to={"/admin/dashboard"}/>
-                            {childRoutes.map((route, index) => <Route component={route.component} path={route.path} key={index}/>) }
+                            {childRoutes.map((route, index) => <Route component={route.component} exact path={route.path} key={index}/>) }
                         </Content>
                     </PerfectScrollbar>
                     <GlobalFooter className={"globalFooter"} copyright={"c"} key={"footer"} links={[]}/>

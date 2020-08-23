@@ -1,6 +1,6 @@
 import React from 'react';
 import {sportColumns} from "../../pages/Sport/data";
-import {Table} from "antd";
+import {Table, PageHeader} from "antd";
 
 // table needs title, data, columns
 // table needs filters?
@@ -29,6 +29,12 @@ export function DataTable(props: {data: any, updateFn: Function, columns: any, t
         };
     }
     return (
+        <div>
+              <PageHeader
+                className="site-page-header"
+                title={props.title}
+            />
         <Table dataSource={props.data} columns={props.columns} rowSelection={getRowSelection(props.data)} rowKey={record => record._id}/>
+        </div>
     );
 }

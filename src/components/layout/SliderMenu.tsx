@@ -8,12 +8,13 @@ import {NavLink} from 'react-router-dom';
 export function SliderMenu(props: { menus: []; collapsed: boolean }) {
     const {menus} = props;
     const generateMenus = (menus: SideMenu[]) => menus.map(menu => (
+        menu.name ?
         <Menu.Item  key={menu.name}>
             <NavLink to={menu.path}>
                 {menu.icon && <LegacyIcon type={menu.icon} />}
                 {!props.collapsed ? menu.name: null}
             </NavLink>
-            </Menu.Item>
+            </Menu.Item> : null
     ));
     return (
         <Menu className={"menu"}>

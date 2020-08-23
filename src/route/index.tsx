@@ -13,6 +13,7 @@ import {
 import {PrivateLayout} from "../layouts/PrivateLayout";
 import {FullPageLoader} from "../components/Loaders/FullPageLoader";
 import {Shop} from "../pages/Shop";
+import UserEdit from '../pages/User/UserEdit';
 
 export const childRoutes = [
     {
@@ -52,9 +53,13 @@ export const childRoutes = [
         component: User
     },
     {
-        name: "Bets",
+        path: "/admin/users/:id",
+        component: UserEdit
+    },
+    {
+        name: "Markets",
         icon: "shopping-cart",
-        path: "/admin/bets",
+        path: "/admin/markets",
         component: Bet
     },
     {
