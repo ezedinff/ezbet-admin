@@ -1,3 +1,5 @@
+import { Form, FormType } from '../../shared/interfaces/form';
+
 export const leagues = [
     {
         id: '1',
@@ -7,6 +9,19 @@ export const leagues = [
         country: 'England',
         sport: 'Soccer',
         isAvailable: true
+    }
+];
+
+export const leagueForm: Form[] = [
+    {
+        name: "name",
+        label: "League Name",
+        type: FormType.TEXT
+    },
+    {
+        name: "country",
+        label: "Country",
+        type: FormType.SELECT
     }
 ];
 
@@ -29,6 +44,7 @@ export const leagueColumns = [
     },
     {
         title: 'Sport',
-        dataIndex: 'sport'
+        dataIndex: 'sport',
+        render: (text: string) => !!text ? text : "Soccer"
     }
 ];

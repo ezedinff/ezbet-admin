@@ -1,7 +1,8 @@
 import React from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import {Card} from "antd";
-export const RuleSetting = (props: any) => {
+export const RuleSetting = (props: {app: any}) => {
+    // mutatation
     const handleEditorChange = (content: any, editor: any) => {
         console.log('Content was updated:', content);
     };
@@ -9,7 +10,7 @@ export const RuleSetting = (props: any) => {
         <Card title={"Rules"}>
             <Editor
                 apiKey={"06zq3c4xhtwn57zwdzyrtz1i7klsey7iefzty44qgwdo7qj9"}
-                initialValue="<p>This is the initial content of the editor</p>"
+                initialValue={props.app.rules}
                 init={{
                     height: 500,
                     menubar: false,

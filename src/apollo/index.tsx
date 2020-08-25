@@ -6,16 +6,16 @@ import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import state from './state';
 
-const SERVER_URL = process.env.REACT_APP_API_SERVER_URL;
-//  const SERVER_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:9852/graphql";
+// const SERVER_URL = "http://localhost:9852/graphql" || process.env.REACT_APP_API_SERVER_URL;
+const SERVER_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:9852/graphql";
 const cache = new InMemoryCache({});
 
 const request = async (operation: any) => {
-  const token = await localStorage.getItem('x-token');
+  const token = localStorage.getItem('token');
   // set the token in the request header for authorization
   operation.setContext({
     headers: {
-      authorization: token ? `Bearer ${token}` : '',
+      Authorization: `Bearer ${token}`,
     },
   });
 };

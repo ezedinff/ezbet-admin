@@ -3,9 +3,11 @@ import {Form} from "antd";
 import {CustomForm} from "../../../components/CustomForm";
 import {profileSettingForm} from "./form";
 import {ProfileImageSetting} from "../ProfileImageSetting";
-export const ProfileSetting = () => {
+export const ProfileSetting = (props: {user: any}) => {
     const [form] = Form.useForm();
+    form.setFieldsValue(props.user);
     const onFinish = () => {
+
     };
     return (
         <Fragment>

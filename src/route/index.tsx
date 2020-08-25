@@ -7,8 +7,7 @@ import {
     League,
     Fixture,
     User,
-    Bet,
-    Advertisement, Transaction, Report, Setting
+    Advertisement, Transaction, Report, Setting, Market
 } from "../pages";
 import {PrivateLayout} from "../layouts/PrivateLayout";
 import {FullPageLoader} from "../components/Loaders/FullPageLoader";
@@ -60,10 +59,10 @@ export const childRoutes = [
         name: "Markets",
         icon: "shopping-cart",
         path: "/admin/markets",
-        component: Bet
+        component: Market
     },
     {
-        name: "Advertisement",
+        name: "Advertisements",
         icon: "fund",
         path: "/admin/advertisements",
         component: Advertisement

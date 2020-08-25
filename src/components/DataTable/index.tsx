@@ -1,12 +1,23 @@
 import React from 'react';
 import {sportColumns} from "../../pages/Sport/data";
 import {Table, PageHeader} from "antd";
+import Filter from '../Filter';
+import { Form } from '../../shared/interfaces/form';
 
 // table needs title, data, columns
 // table needs filters?
 
 // get the data from services, send the data to functions to cast it to required structure
-export function DataTable(props: {data: any, updateFn: Function, columns: any, title: string}){
+export function DataTable(props: {
+    data: any,
+    updateFn: Function,
+    columns: any,
+    title: string,
+    formElements?: Form[],
+    formData?: {intialValues?: any, selectValues?: any}
+    onSubmit?: Function
+}){
+    console.log(props.formElements);
     function getRowSelection(data: any[]) {
         return {
             hideSelectAll: true,
@@ -30,10 +41,12 @@ export function DataTable(props: {data: any, updateFn: Function, columns: any, t
     }
     return (
         <div>
-              <PageHeader
+            <PageHeader
+                onBack={() => window.history.back()}
                 className="site-page-header"
                 title={props.title}
-            />
+            >{props.formElements && <Filter onSubmit = {props.onSubmit} formElements={props.formElements} formData={props.formData}/>}
+                </PageHeader>   
         <Table dataSource={props.data} columns={props.columns} rowSelection={getRowSelection(props.data)} rowKey={record => record._id}/>
         </div>
     );

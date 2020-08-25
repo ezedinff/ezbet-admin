@@ -12,6 +12,8 @@ export const APP = gql`
         minStake
         withdrawalLimit
         bookmaker
+        commissionRate
+        vatRate
         advertisements{
           id
           name

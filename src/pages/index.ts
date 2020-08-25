@@ -1,5 +1,4 @@
 export * from './Advertisement';
-export * from './Bet';
 export * from './Country';
 export * from './Dashboard';
 export * from './Fixture';
@@ -9,3 +8,4 @@ export * from './User';
 export * from './Report';
 export * from './Setting';
 export * from './Transaction';
+export * from './Market';

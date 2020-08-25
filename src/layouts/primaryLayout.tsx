@@ -35,8 +35,7 @@ export default function PrimaryLayout(){
             <Sider appLogo={data.app.appLogo} appName={data.app.appName} menus={childRoutes} collapsed={collapsed} onCollapsed={toggle}/>
             <Layout className={"container"}>
                 <Header collapsed={collapsed} toggle={toggle}/>
-                <div >
-                    <PerfectScrollbar
+                <PerfectScrollbar
                         options={{
                             // Disabled horizontal scrolling, https://github.com/utatti/perfect-scrollbar#options
                             suppressScrollX: true,
@@ -46,9 +45,8 @@ export default function PrimaryLayout(){
                             <Redirect to={"/admin/dashboard"}/>
                             {childRoutes.map((route, index) => <Route component={route.component} exact path={route.path} key={index}/>) }
                         </Content>
-                    </PerfectScrollbar>
-                    <GlobalFooter className={"globalFooter"} copyright={"c"} key={"footer"} links={[]}/>
-                </div>
+                </PerfectScrollbar>
+                <GlobalFooter className={"globalFooter"} copyright={"c"} key={"footer"} links={[]}/>
             </Layout>
         </Layout>
     );

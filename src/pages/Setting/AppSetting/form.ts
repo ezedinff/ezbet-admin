@@ -2,7 +2,7 @@ import {Form, FormType} from "../../../shared/interfaces/form";
 
 export const appSettingForm: Form[] = [
     {
-        name: "appNAme",
+        name: "appName",
         label: "App Name",
         type: FormType.TEXT
     },

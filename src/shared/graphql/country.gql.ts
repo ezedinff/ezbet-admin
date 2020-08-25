@@ -10,3 +10,15 @@ export const COUNTRIES = gql`
       }
     }
 `;
+
+export const UPDATE_COUNTRY = gql`
+mutation UpdateCountry($id: String!, $updateInput: CountryDTO!){
+  updateCountry(id: $id, updateInput: $updateInput) {
+      _id
+      id
+      name
+      order
+      isAvailable
+  }
+}
+`;
