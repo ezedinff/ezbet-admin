@@ -17,7 +17,7 @@ export const ProfileSetting = (props: {user: any}) => {
                         elements={profileSettingForm}
                         type={"PROFILE"}
             >
-                <ProfileImageSetting/>
+                <ProfileImageSetting user={props.user}/>
             </CustomForm>
         </Fragment>
     );

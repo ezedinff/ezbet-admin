@@ -17,6 +17,7 @@ import {useLazyQuery} from "@apollo/react-hooks";
 import {APP} from "../shared/graphql/app.gql";
 import {FullPageLoader} from "../components/Loaders/FullPageLoader";
 import PerfectScrollbar from "../components/Scrollbar";
+import { CURRENT_USER } from '../shared/graphql/user.gql';
 
 const { Content } = Layout;
 
@@ -24,17 +25,19 @@ const { Content } = Layout;
 export default function PrimaryLayout(){
     const [collapsed, setCollapsed] = useState(false);
     const [app, {data, loading, error, refetch}] = useLazyQuery(APP);
-    useEffect(() => {app()}, []);
+    const [getUser, {data: userData, loading: uL, error: uE, refetch: uR}] = useLazyQuery(CURRENT_USER);
+    // @TODO if the referesh token present request for new access token
+    useEffect(() => {app(); getUser()}, []);
     function toggle() {
         setCollapsed(!collapsed);
     }
     // check for authentication,
     // TODO if the device is mobile make it drawer
-    return loading || !data ? <FullPageLoader/> : (
+    return loading || uL || !userData  || !data ? <FullPageLoader/> : (
         <Layout>
-            <Sider appLogo={data.app.appLogo} appName={data.app.appName} menus={childRoutes} collapsed={collapsed} onCollapsed={toggle}/>
+            <Sider  appLogo={data.app.appLogo} appName={data.app.appName} menus={childRoutes} collapsed={collapsed} onCollapsed={toggle}/>
             <Layout className={"container"}>
-                <Header collapsed={collapsed} toggle={toggle}/>
+                <Header user={userData.whoami} collapsed={collapsed} toggle={toggle}/>
                 <PerfectScrollbar
                         options={{
                             // Disabled horizontal scrolling, https://github.com/utatti/perfect-scrollbar#options

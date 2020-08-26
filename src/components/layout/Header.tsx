@@ -11,7 +11,7 @@ import {
     RightOutlined
 } from '@ant-design/icons';
 const {SubMenu} = Menu;
-export function Header(props: { collapsed: any; toggle: any; }) {
+export function Header(props: {user: any; collapsed: any; toggle: any; }) {
     const {collapsed, toggle} = props;
     const rightContent = [
         <Menu key="user" mode="horizontal" onClick={() => console.log('logged')}>
@@ -21,8 +21,8 @@ export function Header(props: { collapsed: any; toggle: any; }) {
               <span style={{ color: '#999', marginRight: 4 }}>
                 Hi
               </span>
-                        <span>Ezedin Fedlu</span>
-                        <Avatar style={{ marginLeft: 8 }} src={"https://lh3.googleusercontent.com/ogw/ADGmqu-OJekP0F5Ho646BZ1UNyZOIFCzwGiKiKQ2vwVL=s83-c-mo"} />
+                <span style={{textTransform: "capitalize"}}>{`${props.user.firstName} ${props.user.lastName}`}</span>
+                        <Avatar style={{ marginLeft: 8 }} src={props.user.details.profileImage} />
                     </Fragment>
                 }
             >

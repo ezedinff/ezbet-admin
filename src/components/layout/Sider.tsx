@@ -4,7 +4,7 @@ import {SliderMenu} from "./SliderMenu";
 import './sider.less'
 import PerfectScrollbar from '../Scrollbar';
 
-export function Sider(props: { menus: any; collapsed: any; onCollapsed: any; appName: string, appLogo: string }) {
+export function Sider(props: {  menus: any; collapsed: any; onCollapsed: any; appName: string, appLogo: string }) {
     const {menus, collapsed, onCollapsed} = props;
     return (
         <Layout.Sider
@@ -27,7 +27,7 @@ export function Sider(props: { menus: any; collapsed: any; onCollapsed: any; app
                        suppressScrollX: true,
 
                    }}>
-                   <SliderMenu menus={menus} collapsed={collapsed}/>
+                   <SliderMenu  menus={menus} collapsed={collapsed}/>
                </PerfectScrollbar>
            </div>
         </Layout.Sider>

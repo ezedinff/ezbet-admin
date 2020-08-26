@@ -2,25 +2,51 @@ import React, { useState, Fragment } from 'react';
 import {CameraOutlined} from "@ant-design/icons/lib";
 import {Avatar, Button} from "antd";
 import "./index.less";
+import { UPLOAD_FILE, UPDATE_PROFILE_IMAGE } from '../../../shared/graphql/file.gql';
+import { useMutation } from '@apollo/react-hooks';
 
-export const ProfileImageSetting = () => {
+export const ProfileImageSetting = (props: {user: any}) => {
     const uploadedImage = React.useRef(null);
     const imageUploader = React.useRef(null);
+    const [upload, {data, loading: isUpdating, error: isFailed}] = useMutation(UPDATE_PROFILE_IMAGE);
 
-
-    const handleImageUpload = (e: any) => {
+    function onChange({
+        target: {
+            // @ts-ignore
+          validity, files: [file],
+        },
+      }) {
+        if (validity.valid){
+            upload({ variables: { file } })
+            console.log(data);
+        }
+      }
+    const toBase64 = (file: any) => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+    const handleImageUpload = async (e: any) => {
         const [file] = e.target.files;
+        console.log(file);
         if (file) {
             const reader = new FileReader();
             const { current } = uploadedImage;
             // @ts-ignore
             current.file = file;
-            console.log(current);
             // wait till the upload is successfull
+            const image = await toBase64(file);
+            console.log()
             reader.onload = e => {
+               upload({variables: {id: props.user._id, image}});
                 // @ts-ignore
                 current.firstChild.src = e.target.result;
             };
+            if(data) {
+                console.log(data);
+
+            }
             reader.readAsDataURL(file);
         }
     };
@@ -41,7 +67,7 @@ export const ProfileImageSetting = () => {
                         display: "none"
                     }}
                 />
-                <Avatar size={128} ref={uploadedImage} src={"https://lh3.googleusercontent.com/ogw/ADGmqu-OJekP0F5Ho646BZ1UNyZOIFCzwGiKiKQ2vwVL=s83-c-mo"} />
+                <Avatar size={128} ref={uploadedImage} src={props.user.details.profileImage} />
                 <Button
                     size={"large"}
                     type="text"
