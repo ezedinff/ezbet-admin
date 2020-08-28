@@ -13,6 +13,7 @@ import {PrivateLayout} from "../layouts/PrivateLayout";
 import {FullPageLoader} from "../components/Loaders/FullPageLoader";
 import {Shop} from "../pages/Shop";
 import UserEdit from '../pages/User/UserEdit';
+import AddShop from '../pages/Shop/AddShop';
 
 export const childRoutes = [
     {
@@ -70,8 +71,12 @@ export const childRoutes = [
     {
         name: "Shops",
         icon: "home",
-        path: "/admin/shop",
+        path: "/admin/shops",
         component: Shop
+    },
+    {
+        path: "/admin/shops/:id",
+        component: AddShop
     },
     {
         name: "Transactions",

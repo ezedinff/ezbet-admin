@@ -1,3 +1,4 @@
+const uuidv1 = require('uuid/v1');
 export const sports = [
     {
         key: "1",
@@ -27,10 +28,12 @@ export const sports = [
 
 export const sportColumns = [
     {
+        key: uuidv1(),
         title: "Name",
         dataIndex: "name"
     },
     {
+        key: uuidv1(),
         title: "Status",
         dataIndex: "isAvailable",
         render: (text: boolean) => text ? 'Active' : 'Inactive'

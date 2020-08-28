@@ -4,6 +4,7 @@ import {Board} from "../../components/Board";
 import {Card, Col, Row, Table} from "antd";
 import './index.less';
 import {boards, favMaarketColumns, favMarkets, favMatches, favMatchesColumns} from "./data";
+const uuidv1 = require('uuid/v1');
 const bodyStyle = {
     bodyStyle: {
         height: 432,
@@ -15,7 +16,7 @@ export const Dashboard = () => {
     const getBoards = () => boards.map((board, index) =>
         (
             <Col key={index} md={8}>
-                <Board number={board.number} title={board.title} color={board.color} icon={board.icon}/>
+                <Board key={board.key} number={board.number} title={board.title} color={board.color} icon={board.icon}/>
             </Col>
         )
     );
@@ -27,6 +28,7 @@ export const Dashboard = () => {
                     pagination={false}
                     columns={columns}
                     dataSource={data}
+                    rowKey={uuidv1() + Date.now()}
                 />
             </Card>
         </Col>

@@ -1,19 +1,24 @@
+const uuidv1 = require('uuid/v1');
+
 export const boards = [
     {
         title: "Total Income",
         number: 5200,
         color: "#22af83",
-        icon: "rise"
+        icon: "rise",
+        key: uuidv1()
     },        {
         title: "Users",
         number: 50,
         color: "#5c6bc0",
-        icon: "team"
+        icon: "team",
+        key: uuidv1()
     },        {
         title: "Total Bets",
         number: 325,
         color: "#f8ae59",
-        icon: "dashboard"
+        icon: "dashboard",
+        key: uuidv1()
     },
 
 ];
@@ -29,14 +34,17 @@ export const favMatches = [
 
 export const favMatchesColumns = [
     {
+        key: uuidv1(),
         title: "Name",
         dataIndex: "name"
     },
     {
+        key: uuidv1(),
         title: "Sport",
         dataIndex: "sport"
     },
     {
+        key: uuidv1(),
         title: "Bet Count",
         dataIndex: "betCount"
     }
@@ -52,14 +60,17 @@ export const favMarkets = [
 
 export const favMaarketColumns = [
     {
+        key: uuidv1(),
         title: "Market ID",
         dataIndex: "id"
     },
     {
+        key: uuidv1(),
         title: "Name",
         dataIndex: "name"
     },
     {
+        key: uuidv1(),
         title: "Bet Count",
         dataIndex: "betCount"
     }

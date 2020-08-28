@@ -1,5 +1,5 @@
 import { Form, FormType } from "../../shared/interfaces/form";
-
+const uuidv1 = require('uuid/v1');
 const fixtureFilters = [
     'Sport', 'League', "Enable/disabled", "Match Status"
 ];
@@ -78,27 +78,33 @@ export const fixtures = [
 ];
 export const fixturesColumns = [
     {
+        key: uuidv1(),
         title: "ID",
         dataIndex: "id"
     },
     {
+        key: uuidv1(),
         title: "Starting Time",
         dataIndex: "date"
     },
     {
+        key: uuidv1(),
         title: "Sport",
         dataIndex: "sport"
     },
     {
+        key: uuidv1(),
         title: "Participants",
         dataIndex: 'teams',
         render: (text: any, record: any) => `${record.teams.home.name} vs ${record.teams.away.name}` 
     },
     {
+        key: uuidv1(),
         title: "League",
         dataIndex: "league"
     },
     {
+        key: uuidv1(),
         title: "Match Status",
         dataIndex: "status",
         // @ts-ignore

@@ -50,7 +50,7 @@ export const userColumns: any[] = [
     {
         title: "Balance",
         key: uuidv1(),
-        render: (text: any, record: any) => `${record.details.accountBalance} ETB`
+        render: (text: any, record: any) => `${record.accountBalance} ETB`
     },
 ];
 

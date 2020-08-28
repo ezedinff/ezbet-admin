@@ -1,17 +1,38 @@
+import { Form, FormType } from '../../shared/interfaces/form';
+const uuidv1 = require('uuid/v1');
 export const shopColumns = [
     {
+        key: uuidv1(),
         title: "ID",
         dataIndex: "id"
     },
     {
+        key: uuidv1(),
         title: "Branch Name",
-        dataIndex: "name"
+        dataIndex: "branchName"
     },
     {
+        key: uuidv1(),
         title: "Admin",
-        dataIndex: "admin"
+        dataIndex: "admin",
+        render: (value: any) => `${value.firstName} ${value.lastName}`
     },
     {
+        key: uuidv1(),
         title: "Actions",
+    },
+];
+
+
+export const shopForm: Form[] = [
+    {
+        name: "branchName",
+        label: "Branch Name",
+        type: FormType.TEXT,
+    },
+    {
+        name: "admin",
+        label: "Admin",
+        type: FormType.SELECT
     },
 ];

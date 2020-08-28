@@ -22,7 +22,7 @@ export function Header(props: {user: any; collapsed: any; toggle: any; }) {
                 Hi
               </span>
                 <span style={{textTransform: "capitalize"}}>{`${props.user.firstName} ${props.user.lastName}`}</span>
-                        <Avatar style={{ marginLeft: 8 }} src={props.user.details.profileImage} />
+                        <Avatar style={{ marginLeft: 8 }} src={props.user.profileImage} />
                     </Fragment>
                 }
             >

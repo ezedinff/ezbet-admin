@@ -32,7 +32,7 @@ export const CustomForm = (props: any) => {
     return (
         <Card title={props.title}>
             {props.type === "PROFILE" ? props.children : null}
-            <Form form={props.form} {...layout} name="control-hooks" onFinish={props.onFinish}>
+            <Form form={props.form} {...layout} name="custom-form" onFinish={props.onFinish}>
                 {getFormElemets(props.elements)}
                 <Form.Item {...tailLayout} style={{textAlign: 'right'}}>
                     <Button type="primary" htmlType="submit">

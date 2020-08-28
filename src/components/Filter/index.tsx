@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { Form, Input, Button, Checkbox, Row, Col, InputNumber, Select } from 'antd';
 import { FormType } from '../../shared/interfaces/form';
-import { relative } from 'path';
+import { DatePicker } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
+
+const { RangePicker } = DatePicker;
 const layout = {
     labelCol: { span: 24 },
     wrapperCol: { span: 24 },
@@ -9,7 +12,7 @@ const layout = {
 const Filter = (props:
      {formElements?: {name: string; label: string; type: FormType}[];
      onSubmit?: Function;
-     formData?: {intialValues?: any, selectValues?: any}}
+     formData?: {intialValues?: any, selectValues?: any}},
      ) => {
       const onFinish = (values: any) => {
             console.log('Success:', values);
@@ -59,6 +62,14 @@ const Filter = (props:
                          </Form.Item>
                         </Col>
                     )
+                case FormType.DATE:
+                    return (
+                        <Col className="gutter-row" md={5}>
+                            <Form.Item name={element.name} label={element.label}>
+                                 <RangePicker/>
+                            </Form.Item>
+                        </Col>
+                    )
             }
         })
     };
@@ -77,8 +88,10 @@ const Filter = (props:
              {props.formElements && getFormElements(props.formElements)}
              <Col className="gutter-row" style={{alignItems: "center", display: "flex"}} md={4}>
                 <Form.Item>
-                    <Button style={{bottom: "-18px", position: "relative"}} type="primary" htmlType="submit">
-                    Submit
+                    <Button
+                    icon={<SearchOutlined translate/>}
+                    style={{bottom: "-18px", position: "relative"}} type="primary" htmlType="submit">
+                    Search
                     </Button>
                 </Form.Item>
              </Col>

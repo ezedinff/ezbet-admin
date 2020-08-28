@@ -67,7 +67,7 @@ export const ProfileImageSetting = (props: {user: any}) => {
                         display: "none"
                     }}
                 />
-                <Avatar size={128} ref={uploadedImage} src={props.user.details.profileImage} />
+                <Avatar size={128} ref={uploadedImage} src={props.user.profileImage} />
                 <Button
                     size={"large"}
                     type="text"

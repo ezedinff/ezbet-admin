@@ -1,6 +1,6 @@
 import React from 'react';
 import {sportColumns} from "../../pages/Sport/data";
-import {Table, PageHeader} from "antd";
+import {Table, PageHeader, Button} from "antd";
 import Filter from '../Filter';
 import { Form } from '../../shared/interfaces/form';
 
@@ -15,7 +15,8 @@ export function DataTable(props: {
     title: string,
     formElements?: Form[],
     formData?: {intialValues?: any, selectValues?: any}
-    onSubmit?: Function
+    onSubmit?: Function,
+    extras?: any
 }){
     console.log(props.formElements);
     function getRowSelection(data: any[]) {
@@ -42,6 +43,7 @@ export function DataTable(props: {
     return (
         <div>
             <PageHeader
+                extra= {props.extras}
                 onBack={() => window.history.back()}
                 className="site-page-header"
                 title={props.title}

@@ -1,5 +1,5 @@
 import { Form, FormType } from '../../shared/interfaces/form';
-
+const uuidv1 = require('uuid/v1');
 export const leagues = [
     {
         id: '1',
@@ -27,22 +27,27 @@ export const leagueForm: Form[] = [
 
 export const leagueColumns = [
     {
+        key: uuidv1(),
         title: "ID",
         dataIndex: 'id',
     },
     {
+        key: uuidv1(),
         title: "Name",
         dataIndex: 'name'
     },
     {
+        key: uuidv1(),
         title: 'Rank',
         dataIndex: 'order'
     },
     {
+        key: uuidv1(),
         title: 'Country',
         dataIndex: 'country'
     },
     {
+        key: uuidv1(),
         title: 'Sport',
         dataIndex: 'sport',
         render: (text: string) => !!text ? text : "Soccer"

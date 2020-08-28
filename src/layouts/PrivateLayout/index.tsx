@@ -19,6 +19,7 @@ export const PrivateLayout = ({ children, ...props }) => {
         return <FullPageLoader/>;
     }
     if (error) {
+        console.log(error);
         history.push('/');
     }
     return <Route {...props}>{children}</Route>;
