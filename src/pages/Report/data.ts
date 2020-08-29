@@ -1,3 +1,5 @@
+import { Form, FormType } from "../../shared/interfaces/form"
+
 export const reportColumns = [
     {
         title: "Date",
@@ -26,5 +28,13 @@ export const reportColumns = [
     {
         title: "15% Comission",
         dataIndex: "comission"
+    }
+]
+
+export const reportFilterForm: Form[] = [
+    {
+        label: "Date",
+        name: "range",
+        type: FormType.DATE
     }
 ]

@@ -18,10 +18,10 @@ export const Shop = () => {
     return isShopLoading || !shops ?
     <FullPageLoader/> :
      (<>
-        <Button onClick = {() => history.push("/admin/shops/0")} icon={<PlusOutlined translate/>}>
-            Create New Shop
-        </Button>
        <DataTable
+       extras ={        <Button onClick = {() => history.push("/admin/shops/0")} icon={<PlusOutlined translate/>}>
+       Create New Shop
+   </Button>}
        columns={shopColumns}
        data={shops.shops}
        title={"Shops"} updateFn={() => {}}/>

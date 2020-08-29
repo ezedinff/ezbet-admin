@@ -14,8 +14,8 @@ export const Transaction = () => {
     const updateFilter = (values: any) => {
         let data = {...values,
              type: values.type === "ALL" ? undefined : values.type,
-            from: String(values.range[0].valueOf()),
-             to: String(values.range[1].valueOf())
+            from: values.range[0].format(),
+             to: values.range[1].format()
             };
         delete data.range;
         getTransactions({

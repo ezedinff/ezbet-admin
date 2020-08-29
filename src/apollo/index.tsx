@@ -7,8 +7,8 @@ import { onError } from 'apollo-link-error';
 import state from './state';
 import { message } from 'antd';
 
-// const SERVER_URL = "http://localhost:9852/graphql" || process.env.REACT_APP_API_SERVER_URL;
-const SERVER_URL = process.env.REACT_APP_API_SERVER_URL || "http://localhost:9852/graphql";
+const SERVER_URL = "http://localhost:9852/graphql" || process.env.REACT_APP_API_SERVER_URL;
+// const SERVER_URL = process.env.REACT_APP_API_SERVER_URL || "http://localhost:9852/graphql";
 const cache = new InMemoryCache({});
 
 const request = async (operation: any) => {
@@ -45,8 +45,8 @@ const link = ApolloLink.from([
   onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
       graphQLErrors.forEach(error => {
-        if(error.extensions && error.extensions['code'] === "INTERNAL_SERVER_ERROR") {
-          message.error("Something Wrong with the server. please try again later.");
+        if(error.extensions && (error.extensions.exception.response.statusCode | error.extensions.exception.response.status) >= 500) {
+          message.error("Something wrong with the server. please try again later.");
         } else {
           message.error(error.message);
         }

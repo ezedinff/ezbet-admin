@@ -5,7 +5,7 @@ export const GlobalFooter = ({ className, links, copyright }) => {
     return (
         <footer className={"globalFooter"}>
             {links && (
-                <div className={links}>
+                <div className={"links"}>
                     {links.map((link: { key: string; blankTarget: any; href: string | undefined; title: string; }) => (
                         <a
                             key={link.key}
@@ -18,7 +18,7 @@ export const GlobalFooter = ({ className, links, copyright }) => {
                     ))}
                 </div>
             )}
-            {copyright && <div className={copyright}>{copyright}</div>}
+            {copyright && <div className={"copyright"}>{copyright}</div>}
         </footer>
     );
 };

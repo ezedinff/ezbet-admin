@@ -8,6 +8,7 @@ import CreateAd from './CreateAd';
 import { PlusOutlined } from '@ant-design/icons';
 import { addListener } from 'process';
 import addColumns from './data';
+import { DataTable } from '../../components/DataTable/index';
 
 const uuidv1 = require('uuid/v1');
 export const Advertisement = () => {
@@ -37,9 +38,17 @@ export const Advertisement = () => {
     }
     return  appLoading || !appData ? <FullPageLoader/> :(
         <>
-        <Button type="primary" icon={<PlusOutlined translate/>} onClick={() => {form.resetFields(); setOpen(true)}}>
-          Create Ad
-        </Button>
+        <DataTable
+            data={appData.app.advertisements}
+            columns={addColumns}
+            title={"Advertisement Banners"}
+            updateFn={() => {}}
+            extras={
+             <Button icon={<PlusOutlined translate/>} onClick={() => {form.resetFields(); setOpen(true)}}>
+                Create Ad
+              </Button>
+            }
+        />
               <CreateAd
                isOpen={open}
                handleOk={onSave}
@@ -48,7 +57,6 @@ export const Advertisement = () => {
                 form={form}
                 onFinish={onFinish}
                 />
-              <Table dataSource={appData.app.advertisements} columns={addColumns} rowKey={uuidv1()}/>
         </>
     );
 };

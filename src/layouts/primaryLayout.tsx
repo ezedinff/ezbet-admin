@@ -49,7 +49,10 @@ export default function PrimaryLayout(){
                             {childRoutes.map((route, index) => <Route component={route.component} exact path={route.path} key={index}/>) }
                         </Content>
                 </PerfectScrollbar>
-                <GlobalFooter className={"globalFooter"} copyright={"c"} key={"footer"} links={[]}/>
+                <GlobalFooter
+                 className={"globalFooter"} copyright={"Copyright © All right reserved"} key={"footer"} links={[
+                     "https://ezbet.com"
+                 ]}/>
             </Layout>
         </Layout>
     );
