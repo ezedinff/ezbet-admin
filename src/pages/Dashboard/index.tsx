@@ -34,13 +34,10 @@ export const Dashboard = () => {
         </Col>
     );
     return (
-        <Page loading={true} classname={"dashboard"}>
-            <Row gutter={24}>
-                {getBoards()}
-                {getTable(favMatchesColumns, favMatches, "Favourite Matches")}
-                {getTable(favMaarketColumns, favMarkets, "Favourite Markets")}
-            </Row>
-{/*            <p>favorite matches and favorite market</p>*/}
-        </Page>
+       <Row gutter={24}>
+        {getBoards()}
+        {getTable(favMatchesColumns, favMatches, "Favourite Matches")}
+        {getTable(favMaarketColumns, favMarkets, "Favourite Markets")}
+       </Row>
     )
 };

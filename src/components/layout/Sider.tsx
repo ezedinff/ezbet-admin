@@ -3,8 +3,9 @@ import React from 'react';
 import {SliderMenu} from "./SliderMenu";
 import './sider.less'
 import PerfectScrollbar from '../Scrollbar';
+import { boolean } from 'yup';
 
-export function Sider(props: {  menus: any; collapsed: any; onCollapsed: any; appName: string, appLogo: string }) {
+export function Sider(props: {isMobile: boolean,  menus: any; collapsed: any; onCollapsed: any; appName: string, appLogo: string }) {
     const {menus, collapsed, onCollapsed} = props;
     return (
         <Layout.Sider
@@ -12,6 +13,7 @@ export function Sider(props: {  menus: any; collapsed: any; onCollapsed: any; ap
             collapsed={collapsed}
             className={"sider"}
             breakpoint="lg"
+            onBreakpoint={props.onCollapsed}
             trigger={null}
         >
             <div className={"brand"}>
