@@ -7,6 +7,7 @@ import { DataTable } from '../../components/DataTable';
 import { userColumns } from './data';
 import { Button, Modal } from 'antd';
 import { EditOutlined, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import CustomDialog from '../../components/CustomDialog';
 import { useHistory } from 'react-router-dom';
 import { useConfirmation } from '../../components/CustomDialog/confirm';
@@ -16,27 +17,14 @@ import UserEdit from './UserEdit';
 const uuidv1 = require('uuid/v1');
 
 export const User = () => {
-    const [getUsers, {data, loading, error, refetch}] = useLazyQuery(USERS);
-    const [visible, setvisible] = useState(false);
+    const [getUsers, {data, loading, error, refetch}] = useLazyQuery(USERS,{fetchPolicy :'network-only'});
     const history = useHistory();
     useEffect(() => {
         getUsers();
         if(!userColumns.find(column => column.title === "Actions")) {
-            userColumns.push(actions);
+            userColumns.push(actions)
         }
      }, []);
-    const handleOk  = () =>  {
-        setvisible(false);
-        console.log("Clicked!");
-    }
-    const handleCancel  = () =>  {
-        setvisible(false);
-        console.log("Clicked!");
-    }
-
-    const tryToKill = () => {
-        setvisible(true);
-      };
     
     const actions = {
         title: "Actions",
@@ -48,22 +36,19 @@ export const User = () => {
                      &nbsp;
                      <Button key={uuidv1()} onClick={() => history.push(`/admin/users/${record._id}`)} icon={<EyeOutlined translate/>} />
                      &nbsp;
-                     <Button key={uuidv1()} onClick= {() => setvisible(true)} danger icon={<DeleteOutlined translate/>} />
+                     <Button key={uuidv1()} onClick= {()=>alert('deleted')} danger icon={<DeleteOutlined translate/>} />
                 </>
             )
         }
     }
     return loading || !data ? <FullPageLoader/> : (
         <>
-        <Modal
-        title={title}
-        visible={visible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        >
-            <UserEdit/>
-        </Modal>
-            <DataTable columns={userColumns} data={data.users} title={"Users"} updateFn={() => {}}/>
+            <DataTable 
+            extras ={<Button onClick={()=>history.push(`/admin/users/0`)} icon={<PlusOutlined translate/>}>
+                        Create New User
+                    </Button>}
+             columns={userColumns} data={data.users} title={"Users"} updateFn={() => {}}
+             />
         </>
     );
 };

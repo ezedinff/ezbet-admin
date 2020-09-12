@@ -1,27 +1,34 @@
 import React, { useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { TRANSACTIONS } from '../../shared/graphql/transaction.gql';
+import {useHistory} from 'react-router-dom'
 import { FullPageLoader } from '../../components/Loaders/FullPageLoader';
 import { DataTable } from '../../components/DataTable';
 import { transactionColumns, transactionFilters } from './data';
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 export const Transaction = () => {
-    const [getTransactions, {data: transactions, loading, error}] = useLazyQuery(TRANSACTIONS);
+    const history = useHistory()
+    const [getTransactions, {data: transactions, loading, error}] = useLazyQuery(TRANSACTIONS,{fetchPolicy:'network-only'});
     useEffect(() => {
         getTransactions();
     }, [])
     const updateFilter = (values: any) => {
         let data = {...values,
              type: values.type === "ALL" ? undefined : values.type,
-            from: values.range[0].format(),
-             to: values.range[1].format()
             };
+            if(values.range){
+                    console.log(data)
+                    console.log(values.range[0].format())
+                    data['from'] = values.range[0].format()
+                    data['to'] = values.range[1].format()
+            }
         delete data.range;
         getTransactions({
             variables: data
         });
     }
+    console.log(transactions)
     return loading || !transactions
      ? <FullPageLoader/>
      : (
@@ -29,7 +36,7 @@ export const Transaction = () => {
          columns ={transactionColumns}
          formElements={transactionFilters}
          onSubmit={updateFilter}
-         extras = {<Button icon={<PlusOutlined translate/>}>Create Transaction</Button>}
+         extras = {<Button icon={<PlusOutlined translate/>} onClick={() =>history.push('/admin/maketransaction')}>Create Transaction</Button>}
          formData={{
              intialValues: {type: "ALL"},
              selectValues: {

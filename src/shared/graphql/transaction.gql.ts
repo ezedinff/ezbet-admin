@@ -18,20 +18,34 @@ query GetTransactions(
             _id
             type
             amount
-            shop{
-              _id
-              branchName
-            }
+            createdAt
             customer{
               _id
               firstName
               lastName
+              username
             }
             cashier{
               _id
               firstName
               lastName
+              username
             }
         }
     }
 `;
+
+export const MAKE_TRANSACTION = gql`
+ mutation MakeTransaction($transaction: TransactionDTO!){
+   makeTransaction(transaction: $transaction){
+    _id
+    createdAt
+    updatedAt
+    type
+    amount
+    cashier{
+      _id
+    }
+   }
+ }
+`
