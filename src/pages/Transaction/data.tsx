@@ -1,16 +1,16 @@
-import { Form, FormType } from '../../shared/interfaces/form';
+import React from 'react';
+import { Form, FormType, } from '../../shared/interfaces/form';
+import __UnixTimeConverter from '../../utils/unixTimeConverter'
+import { Button } from 'antd';
+import  { PrinterTwoTone } from '@ant-design/icons';
 export const transactionColumns = [
     {
         title: "Customer",
-        dataIndex: "customer"
+        dataIndex: ["customer","username"]
     },
     {
         title: "Cashier",
-        dataIndex: "cashier"
-    },
-    {
-        title: "Shop",
-        dataIndex: "shop"
+        dataIndex: ["cashier", "username"]
     },
     {
         title: "Transaction Type",
@@ -22,7 +22,13 @@ export const transactionColumns = [
     },
     {
         title: "Date",
-        dataIndex: "date"
+        dataIndex: "createdAt",
+        render: (createdDate:any)=><p>{__UnixTimeConverter(createdDate)}</p>
+        
+    },
+    {
+        dataIndex: "_id",
+        render: (id:any) => <Button onClick={()=>alert(id)}><PrinterTwoTone translate/></Button>
     }
 ]
 

@@ -7,11 +7,12 @@ import {
     League,
     Fixture,
     User,
-    Advertisement, Transaction, Report, Setting, Market
+    Advertisement, Transaction,Report, Setting, Market
 } from "../pages";
 import {PrivateLayout} from "../layouts/PrivateLayout";
 import {FullPageLoader} from "../components/Loaders/FullPageLoader";
 import {Shop} from "../pages/Shop";
+import MakeTransaction from '../pages/Transaction/MakeTransaction'
 import UserEdit from '../pages/User/UserEdit';
 import AddShop from '../pages/Shop/AddShop';
 
@@ -83,6 +84,10 @@ export const childRoutes = [
         icon: "shrink ",
         path: "/admin/transactions",
         component: Transaction
+    },
+    {
+        path: "/admin/maketransaction",
+        component: MakeTransaction
     },
     {
         name: "Reports",

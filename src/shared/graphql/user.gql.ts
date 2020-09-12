@@ -32,6 +32,19 @@ query GetUsers($firstName: String, $lastName: String, $username: String, $role: 
     }
 }
 `;
+
+export const USER = gql`
+query GetUser($id: String!){
+  user(id: $id){
+      _id
+      firstName
+      lastName
+      username
+      role
+  }
+}
+`;
+
 export const UPDATE_USER = gql`
 mutation UpdateUser(
   $id: String!,
@@ -53,3 +66,12 @@ mutation UpdateUser(
 }
 
 `;
+
+export const CREATE_USER = gql`
+mutation CreateUser($userInput: UserDto!){
+  register(userInput: $userInput){
+      success
+      message
+  }
+}
+`

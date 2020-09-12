@@ -4,6 +4,8 @@ import { reportColumns, reportFilterForm } from './data';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { REPORT } from '../../shared/graphql/report.gql';
 import { FullPageLoader } from '../../components/Loaders/FullPageLoader';
+import { Button } from 'antd';
+import {PrinterFilled} from '@ant-design/icons';
 export const Report = () => {
     const [getReport, {data, loading, error}] = useLazyQuery(REPORT);
     useEffect(() => {
@@ -29,6 +31,9 @@ export const Report = () => {
             onSubmit={onFilter}
             columns={reportColumns}
             data={data.report}
+            extras={
+                <Button><PrinterFilled translate/></Button>
+            }
             updateFn={() => {}}
         />
     )
