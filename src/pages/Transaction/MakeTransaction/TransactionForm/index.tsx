@@ -31,10 +31,13 @@ const TransactionForm = (props: any) => {
     }
 
     const history = useHistory()
+    const [isFormSubmitting,setFormSubmitting] = useState(false)
     const onFinish = (values:any) => {
+        setFormSubmitting(true)
         const transaction = {customer: values.customer,amount:parseFloat(values.amount), type: type}
         makeTransaction({variables: {transaction}})
         .then((data)=>{
+            setFormSubmitting(false)
             history.push("/admin/transactions")
         })
         .catch((err)=>{
@@ -49,7 +52,7 @@ const TransactionForm = (props: any) => {
             name={`Make ${type}`}
             onFinish={onFinish} >
             <Card  
-                extra={<Button type="primary" htmlType="submit">
+                extra={<Button type="primary" htmlType="submit" loading={isFormSubmitting}>
                         {type === 'DEPOSIT' ? 'Deposit' : 'Withdraw'} 
                       </Button>}
                 title={type === 'DEPOSIT' ? 'Deposit' : 'Withdrawal'} 

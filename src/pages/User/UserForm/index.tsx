@@ -24,11 +24,14 @@ const UserForm: React.FC<UserFormProps>= (props) => {
     const mutationUsed = mode === 'CREATE' ? CREATE_USER : UPDATE_USER
 
     const [mutate] = useMutation(mutationUsed)
+    const [isFormLoading, setFormLoading] = useState(false)
     const onFinish = (values: any) => { 
+        setFormLoading(true)
         delete values.confirm
         const variables = mode === 'CREATE' ? {userInput: values} : {id: data._id, updateInput: values}
         mutate({variables: variables})
         .then(()=>{
+            setFormLoading(false)
             history.push('/admin/users')
         }).catch(e=>{
             console.log('the error is',e)
@@ -49,6 +52,7 @@ const UserForm: React.FC<UserFormProps>= (props) => {
                     <Button onClick={()=>history.push('/admin/users')}>cancel</Button>
                     }
                     <Button 
+                    loading={isFormLoading}
                     icon={<SaveOutlined translate/>} 
                     type="primary" htmlType="submit">{mode === 'CREATE' ? 'Create' : 'Save'}</Button>
                 </Space>
