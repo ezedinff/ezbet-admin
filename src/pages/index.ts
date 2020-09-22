@@ -9,3 +9,4 @@ export * from './Report';
 export * from './Setting';
 export * from './Transaction';
 export * from './Market';
+export * from './Ticket';

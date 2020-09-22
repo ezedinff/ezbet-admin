@@ -5,15 +5,15 @@ import {useQuery} from '@apollo/react-hooks'
 
 import { FullPageLoader } from '../../../components/Loaders/FullPageLoader';
 import UserForm from '../UserForm'
-import { USER} from '../../../shared/graphql/user.gql'
+import { GET_USER } from '../../../shared/graphql/user.gql'
 
 
 
 const UserEdit: React.FC = () => {
-    const {id} = useParams()
+    const {id}:any = useParams()
     const mode = id === '0' ? 'CREATE' : 'EDIT'
     
-    const {loading, data, error} = useQuery(USER, {variables: {id}, skip: mode === 'CREATE'} )
+    const {loading, data, error} = useQuery(GET_USER, {variables: {id}, skip: mode === 'CREATE'} )
 
     if(mode === 'CREATE'){
         return <UserForm mode={mode} />

@@ -7,14 +7,14 @@ import {
     League,
     Fixture,
     User,
-    Advertisement, Transaction,Report, Setting, Market
+    Advertisement, Transaction,Report, Setting, Market, Ticket
 } from "../pages";
 import {PrivateLayout} from "../layouts/PrivateLayout";
 import {FullPageLoader} from "../components/Loaders/FullPageLoader";
 import {Shop} from "../pages/Shop";
 import MakeTransaction from '../pages/Transaction/MakeTransaction'
 import UserEdit from '../pages/User/UserEdit';
-import AddShop from '../pages/Shop/AddShop';
+import AddShop from '../pages/Shop/AddAndEditShop';
 
 export const childRoutes = [
     {
@@ -94,6 +94,12 @@ export const childRoutes = [
         icon: "snippets",
         path: "/admin/reports",
         component: Report
+    },
+    {
+        name: "Tickets",
+        icon: "container",
+        path: "/admin/tickets",
+        component: Ticket
     },
     {
         name: "Settings",
