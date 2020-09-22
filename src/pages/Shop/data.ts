@@ -17,10 +17,6 @@ export const shopColumns = [
         dataIndex: "admin",
         render: (value: any) => `${value.firstName} ${value.lastName}`
     },
-    {
-        key: uuidv1(),
-        title: "Actions",
-    },
 ];
 
 

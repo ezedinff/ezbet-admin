@@ -28,7 +28,7 @@ export const transactionColumns = [
     },
     {
         dataIndex: "_id",
-        render: (id:any) => <Button onClick={()=>alert(id)}><PrinterTwoTone translate/></Button>
+        render: (id:any) => <Button onClick={()=>window.print()}><PrinterTwoTone translate/></Button>
     }
 ]
 

@@ -5,7 +5,7 @@ import { USERS } from '../../shared/graphql/user.gql';
 import { FullPageLoader } from '../../components/Loaders/FullPageLoader';
 import { DataTable } from '../../components/DataTable';
 import { userColumns } from './data';
-import { Button, Modal } from 'antd';
+import { Button } from 'antd';
 import { EditOutlined, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 import { PlusOutlined } from '@ant-design/icons';
 import CustomDialog from '../../components/CustomDialog';

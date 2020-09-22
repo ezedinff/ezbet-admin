@@ -33,7 +33,7 @@ query GetUsers($firstName: String, $lastName: String, $username: String, $role: 
 }
 `;
 
-export const USER = gql`
+export const GET_USER = gql`
 query GetUser($id: String!){
   user(id: $id){
       _id

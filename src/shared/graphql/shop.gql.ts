@@ -47,3 +47,51 @@ mutation CreateShop($shopInput: ShopDto!){
     }
   }
 `;
+
+export const UPDATE_SHOP = gql`
+   mutation UpdateShop($shopInput: UpdateShopDTO!, $id: String!){
+     updateShop(shopInput: $shopInput, id: $id){
+      _id
+      branchName
+      isActive
+      admin{
+        _id
+        firstName
+        lastName
+        username
+      }
+      contacts{
+        type
+        value
+      }
+      location{
+        lat
+        lon
+      }
+     }
+   }
+`
+
+export const GET_SHOP = gql`
+query getShop($id: String!){
+  shop(id: $id){
+    _id
+    branchName
+    isActive
+    admin{
+      _id
+      firstName
+      lastName
+      username
+    }
+    contacts{
+      type
+      value
+    }
+    location{
+      lat
+      lon
+    }
+  }
+}
+`;

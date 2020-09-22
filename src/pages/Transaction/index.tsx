@@ -17,12 +17,11 @@ export const Transaction = () => {
         let data = {...values,
              type: values.type === "ALL" ? undefined : values.type,
             };
-            if(values.range){
-                    console.log(data)
-                    console.log(values.range[0].format())
+            if(values.range.length === 2){
                     data['from'] = values.range[0].format()
                     data['to'] = values.range[1].format()
             }
+            console.log(data)
         delete data.range;
         getTransactions({
             variables: data

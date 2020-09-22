@@ -44,6 +44,7 @@ export const requestLink = new ApolloLink(
 const link = ApolloLink.from([
   onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
+      console.log(graphQLErrors)
       graphQLErrors.forEach(error => {
         if(error.extensions && (error.extensions.exception.response.statusCode | error.extensions.exception.response.status) >= 500) {
           message.error("Something wrong with the server. please try again later.");
