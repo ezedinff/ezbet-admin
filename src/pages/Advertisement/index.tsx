@@ -1,62 +1,66 @@
-import React, { useEffect, useState } from 'react';
-import './index.less';
-import { Table, Button, Form } from 'antd';
-import { useLazyQuery, useMutation } from '@apollo/react-hooks';
-import { FullPageLoader } from '../../components/Loaders/FullPageLoader';
-import { APP, UPDATE_APP } from '../../shared/graphql/app.gql';
-import CreateAd from './CreateAd';
-import { PlusOutlined } from '@ant-design/icons';
-import { addListener } from 'process';
-import addColumns from './data';
-import { DataTable } from '../../components/DataTable/index';
+import React, { useEffect } from "react";
+import { useQuery } from "@apollo/react-hooks";
+import { useHistory } from "react-router-dom";
+import { Button, Space } from "antd";
+import { FullPageLoader } from "../../components/Loaders/FullPageLoader";
+import { DataTable } from "../../components/DataTable/index";
+import { PlusOutlined } from "@ant-design/icons";
+import { APP } from "../../shared/graphql/app.gql";
+import addColumns from "./data";
 
-const uuidv1 = require('uuid/v1');
+const uuidv1 = require("uuid/v1");
+
 export const Advertisement = () => {
-    // get the app here
-    const [app, {data: appData, loading: appLoading, error: appError, refetch: appRef}] = useLazyQuery(APP);
-    const [updateApp, {data: league, loading: isUpdating, error: isFailed}] = useMutation(UPDATE_APP);
-    const [open, setOpen] = useState(false);
-    const [form] = Form.useForm();
+  const { data, loading, error } = useQuery(APP);
+  const history = useHistory();
 
-    useEffect(() => {
-        app();
-    }, [])
+  const actions: any = {
+    key: uuidv1(),
+    title: "Actions",
+    render: (record: any) => {
+      return (
+        <Space size="small">
+          <Button onClick={() => console.log(record)}>View</Button>
+          <Button
+            onClick={() => history.push(`/admin/advertisements/${record.id}`)}
+          >
+            Edit
+          </Button>
+          <Button onClick={() => alert(JSON.stringify(record) + "Deleted")}>
+            Delete
+          </Button>
+        </Space>
+      );
+    },
+  };
 
-    const onFinish = () => {}
-    const onSave = () => {
-        const ads = appData.app.advertisements;
-        ads.push(form.getFieldsValue())
-        updateApp({
-            variables: {
-                id: appData.app._id,
-                appInput: {
-                    advertisements: ads
-                }
-            }
-        })
-        setOpen(false);
+  useEffect(() => {
+    if (!addColumns.find((col) => col.title === "Actions")) {
+      addColumns.push(actions);
     }
-    return  appLoading || !appData ? <FullPageLoader/> :(
-        <>
-        <DataTable
-            data={appData.app.advertisements}
-            columns={addColumns}
-            title={"Advertisement Banners"}
-            updateFn={() => {}}
-            extras={
-             <Button icon={<PlusOutlined translate/>} onClick={() => {form.resetFields(); setOpen(true)}}>
-                Create Ad
-              </Button>
-            }
-        />
-              <CreateAd
-               isOpen={open}
-               handleOk={onSave}
-                handleCancel={() => setOpen(false)}
-                okText={"Save"}
-                form={form}
-                onFinish={onFinish}
-                />
-        </>
-    );
+  }, []);
+
+  if (loading) {
+    return <FullPageLoader />;
+  }
+  if (error) {
+    return <h1>Error</h1>;
+  }
+
+  return (
+    <DataTable
+      data={data.app.advertisements}
+      columns={addColumns}
+      title={"Advertisement Banners"}
+      updateFn={() => {}}
+      extras={
+        <Button
+          icon={<PlusOutlined translate="true" />}
+          onClick={() => history.push("/admin/advertisements/0")}
+        >
+          Create Ad
+        </Button>
+      }
+    />
+  );
 };
