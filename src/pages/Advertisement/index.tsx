@@ -24,8 +24,9 @@ export const Advertisement = () => {
 
     const onFinish = () => {}
     const onSave = () => {
-        const ads = appData.app.advertisements;
-        ads.push(form.getFieldsValue())
+        let ads = appData.app.advertisements;
+        ads = ads.map((ad: any) => ({id: ad.id, name: ad.name, position: ad.position, imagePath: ad.imagePath}))
+        ads = [...ads, form.getFieldsValue()];
         updateApp({
             variables: {
                 id: appData.app._id,
