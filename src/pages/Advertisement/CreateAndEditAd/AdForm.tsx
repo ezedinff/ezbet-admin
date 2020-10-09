@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useMutation } from "@apollo/react-hooks";
-import { Card, Form, Input, Row, Col, Select, Button, Space } from "antd";
+import { Card, Form, Input, Select, Button, Space } from "antd";
 import { Avatar } from "../../../components/avator";
 import { SaveOutlined } from "@ant-design/icons";
 import {
-  UPDATE_APP,
-  UPDATE_ADVERTISEMENT,
-} from "../../../shared/graphql/app.gql";
+  UPDATE_APP,} from "../../../shared/graphql/app.gql";
 
 const uuidv1 = require("uuid/v1");
 
@@ -20,8 +18,7 @@ const AdForm = (props: any) => {
   const history = useHistory();
 
   const { mode, ads, adToEditId, appId } = props;
-  const mutationToUse = mode === "CREATE" ? UPDATE_APP : UPDATE_ADVERTISEMENT;
-  const [mutate] = useMutation(mutationToUse);
+  const [mutate] = useMutation(UPDATE_APP);
 
   const [form] = Form.useForm();
   const [formLoading, setFormLoading] = useState(false);
@@ -49,18 +46,32 @@ const AdForm = (props: any) => {
   const onFinish = () => {
     setFormLoading(true);
     console.log("fields submitted", form.getFieldsValue());
+    console.log("ads", ads);
     let variables = {};
     const values = form.getFieldsValue();
-    if (mode === "CREATE") {
-      ads.push(values);
-      variables = { id: appId, appInput: { advertisements: [...ads] } };
-    } else {
-      variables = { id: appId, adInput: values };
+    const adsWithoutTypeName = ads.map((ad: any) => {
+      if (ad.__typename) {
+        delete ad.__typename;
+      }
+      return ad;
+    });
+    if(mode === "CREATE"){
+      adsWithoutTypeName.push(values);
     }
+    else{
+      const adToEdit = adsWithoutTypeName.findIndex((ad:any) => ad.id === adToEditId)
+      if(adToEdit >= 0){
+        ads[adToEdit] = {...values, id: adsWithoutTypeName[adToEdit].id}
+      }
+    }
+    variables = {
+      id: appId,
+      appInput: { advertisements: [...ads] },
+    };
     mutate({ variables })
       .then(() => {
         setFormLoading(false);
-        console.log("Manupulated ad");
+        history.push("/admin/advertisements")
       })
       .catch((e) => {
         setFormLoading(false);
@@ -68,12 +79,6 @@ const AdForm = (props: any) => {
       });
   };
 
-  // variables: {
-  //   id: appId,
-  //   appInput: {
-  //     advertisements: ads,
-  //   },
-  // },
 
   return (
     <Form
@@ -145,8 +150,8 @@ const AdForm = (props: any) => {
           <Avatar handleUpload={handleUpload} />
         </div>
         {mode === "EDIT" && (
-          <div style={{ marginLeft: "10%" }}>
-            <div>Uploaded Image</div>
+          <div style={{ margin : "10px 0 10px 10%" }}>
+            <div style={{fontWeight: 'bolder'}}>Uploaded Image</div>
             <img
               width="500px"
               height="100px"

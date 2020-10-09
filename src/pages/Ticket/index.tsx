@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { Result, Button, Modal, Space } from "antd";
 import { PrinterTwoTone } from "@ant-design/icons";
@@ -15,6 +15,37 @@ const uuidv1 = require("uuid/v1");
 export const Ticket = () => {
   const [ticketToPlace, setTicketToPlace] = useState(null);
   const [ticketToPrint, setTicketToPrint] = useState(null);
+  
+useEffect(()=>{
+    const actions = {
+      title: "Actions",
+      key: uuidv1(),
+      render: (record: any) => {
+        return (
+          <Space>
+            <Button
+              onClick={() => setTicketToPlace(record)}
+              disabled={record.isPlaced}
+              type="primary"
+            >
+              {record.isPlaced ? "Placed" : "Place"}
+            </Button>
+            <Button
+              onClick={() => setTicketToPrint(record)}
+              disabled={!record.isPlaced}
+            >
+              <PrinterTwoTone translate="true" />
+            </Button>
+          </Space>
+        );
+      },
+    };
+    const actionIndex = ticketColumns.findIndex((column) => column.title === "Actions")
+    if (actionIndex >= 0) {
+      ticketColumns.splice(actionIndex,1)
+    }
+    ticketColumns.push(actions);
+  },[])
 
   const componentRef: any = useRef();
   const handlePrint = useReactToPrint({
@@ -53,33 +84,7 @@ export const Ticket = () => {
     setFilteredData(ticket);
   };
 
-  const actions = {
-    title: "Actions",
-    key: uuidv1(),
-    render: (record: any) => {
-      return (
-        <Space>
-          <Button
-            onClick={() => setTicketToPlace(record)}
-            disabled={record.isPlaced}
-            type="primary"
-          >
-            {record.isPlaced ? "Placed" : "Place"}
-          </Button>
-          <Button
-            onClick={() => setTicketToPrint(record)}
-            disabled={!record.isPlaced}
-          >
-            <PrinterTwoTone translate="true" />
-          </Button>
-        </Space>
-      );
-    },
-  };
-
-  if (!ticketColumns.find((column) => column.title === "Actions")) {
-    ticketColumns.push(actions);
-  }
+  
 
   return (
     <>
