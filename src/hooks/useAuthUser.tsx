@@ -1,6 +1,6 @@
-import { useApolloClient } from '@apollo/react-hooks';
-import { useHistory } from 'react-router-dom';
-import {LOCAL_STORAGE_TEMPLATE, ROUTES} from "../enumerations";
+import { useApolloClient } from "@apollo/react-hooks";
+import { useHistory } from "react-router-dom";
+import { LOCAL_STORAGE_TEMPLATE, ROUTES } from "../enumerations";
 
 const useAuthUser = () => {
   const client = useApolloClient();
@@ -14,7 +14,7 @@ const useAuthUser = () => {
   const logout = () => {
     client.resetStore();
     localStorage.clear();
-    history.push('/');
+    history.push("/");
   };
 
   return { logout, setAuthUser };
