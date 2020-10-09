@@ -34,9 +34,24 @@ export const Advertisement = () => {
     },
   };
 
+
   useEffect(() => {
     if (!addColumns.find((col) => col.title === "Actions")) {
       addColumns.push(actions);
+    const onFinish = () => {}
+    const onSave = () => {
+        let ads = appData.app.advertisements;
+        ads = ads.map((ad: any) => ({id: ad.id, name: ad.name, position: ad.position, imagePath: ad.imagePath}))
+        ads = [...ads, form.getFieldsValue()];
+        updateApp({
+            variables: {
+                id: appData.app._id,
+                appInput: {
+                    advertisements: ads
+                }
+            }
+        })
+        setOpen(false);
     }
   }, []);
 
