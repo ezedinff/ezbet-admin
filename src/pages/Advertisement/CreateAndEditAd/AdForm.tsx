@@ -66,7 +66,7 @@ const AdForm = (props: any) => {
     }
     variables = {
       id: appId,
-      appInput: { advertisements: [...ads] },
+      appInput: { advertisements: [...adsWithoutTypeName] },
     };
     mutate({ variables })
       .then(() => {
