@@ -1,22 +1,22 @@
-import { useApolloClient } from '@apollo/react-hooks';
-import { useHistory } from 'react-router-dom';
+import { useApolloClient } from "@apollo/react-hooks";
+import { useHistory } from "react-router-dom";
 
 const useAuthUser = () => {
-    const client = useApolloClient();
-    const history = useHistory();
+  const client = useApolloClient();
+  const history = useHistory();
 
-    const setAuthUser = (token: string) => {
-        localStorage.setItem('token', token);
-        history.push('/admin');
-    };
+  const setAuthUser = (token: string) => {
+    localStorage.setItem("token", token);
+    history.replace("/admin");
+  };
 
-    const logout = () => {
-        client.resetStore();
-        localStorage.clear();
-        history.push('/');
-    };
+  const logout = () => {
+    client.resetStore();
+    localStorage.clear();
+    history.replace("/");
+  };
 
-    return { logout, setAuthUser };
+  return { logout, setAuthUser };
 };
 
 export default useAuthUser;

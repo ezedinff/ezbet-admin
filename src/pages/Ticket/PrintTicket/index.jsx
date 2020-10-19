@@ -1,42 +1,59 @@
-import React from 'react'
+import React from "react";
 
-import './style.css' 
-import __UnixTimeConverter from '../../../utils/unixTimeConverter'
-// <{ticket: any}>
-class PrintTicket extends React.Component{
+import "./style.css";
 
-    ticket = this.props.ticket
-    companyName="EzBet"
-    calculateReturns = () => {
-        return (this.ticket.stake * this.ticket.totalOdds) - this.ticket.vatValue
+class PrintTicket extends React.Component {
+  state = {
+    ticket: this.props.ticket,
+  };
+  companyName = "EzBet";
+
+  componentDidUpdate = (prevProps, prevState) => {
+    console.log("update", this.state.ticket);
+    if (this.props.ticket && prevProps.ticket !== this.props.ticket) {
+      this.setState({ ticket: this.props.ticket });
     }
-    render(){
-        console.log('props',this.props)
-        return (
-            <div className="ticket-container" onClick={window.print}>
-                <div className='ticket-item'>
-                    <h1 className="ticket-item_header">{this.companyName}</h1>
-                    <p className="ticket-item_id">Ticket ID : {this.ticket.ticketID}</p>
-                    <p className="ticket-item_date">Date : {new Date().toLocaleDateString('en-GB')}</p>
-                    {this.ticket.bets.map( bet => (
-                        <article key={bet._id} className="ticket-item_bet">
-                            <p className="ticket-item_bet_name">{bet.fixtureName}</p>
-                            <span className="ticket-item_bet_details">{bet.type}</span>
-                            <span className="ticket-item_bet_details">{bet.value}</span>
-                            <span className="ticket-item_bet_details">{bet.oddValue}</span>
-                            <hr/>
-                        </article>
-                    ))}
-                    <div className="ticket-item_summary">
-                            <p>Bet Amt : {this.ticket.stake}</p>
-                            <p>Vat(15%) : {this.ticket.vatValue}</p>
-                            <p>Est Return : {this.calculateReturns()}</p>
-                    </div>
-                    <hr/>
-                    <div className="ticket-item_terms">Terms and conditions apply as set by {this.companyName}</div>
-                </div>
-            </div>
-    )
+  };
+
+  calculateReturns = () => {
+    const { stake, totalOdds, vatValue } = this.state.ticket;
+    return stake * totalOdds - vatValue;
+  };
+
+  render() {
+    if (!this.state.ticket || !this.state.ticket.bets) {
+      return "Loading";
     }
+    const { placementID, bets, stake, vatValue } = this.state.ticket;
+    return (
+      <div className="ticket-container">
+        <div className="ticket-item">
+          <h1 className="ticket-item_header">{this.companyName}</h1>
+          <p className="ticket-item_id">Placement ID : {placementID}</p>
+          <p className="ticket-item_date">
+            Date : {new Date().toLocaleDateString("en-GB")}
+          </p>
+          {bets.map((bet) => (
+            <article key={bet._id} className="ticket-item_bet">
+              <p className="ticket-item_bet_name">{bet.fixtureName}</p>
+              <span className="ticket-item_bet_details">{bet.type}</span>
+              <span className="ticket-item_bet_details">{bet.value}</span>
+              <span className="ticket-item_bet_details">{bet.oddValue}</span>
+              <hr />
+            </article>
+          ))}
+          <div className="ticket-item_summary">
+            <p>Bet Amt : {stake}</p>
+            <p>Vat(15%) : {vatValue}</p>
+            <p>Est Return : {this.calculateReturns()}</p>
+          </div>
+          <hr />
+          <div className="ticket-item_terms">
+            Terms and conditions apply as set by {this.companyName}
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
-export default PrintTicket
+export default PrintTicket;
